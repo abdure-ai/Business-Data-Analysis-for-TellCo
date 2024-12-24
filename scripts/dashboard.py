@@ -5,9 +5,16 @@ import seaborn as sns
 import plotly.express as px
 
 # Load data
-engagement_data = pd.read_csv("engagement_data.csv")
-experience_data = pd.read_csv("experience_data.csv")
-satisfaction_data = pd.read_csv("satisfaction_data.csv")
+engagement_file = st.file_uploader("Upload engagement data", type=["csv"])
+experience_file = st.file_uploader("Upload experience data", type=["csv"])
+satisfaction_file = st.file_uploader("Upload satisfaction data", type=["csv"])
+
+if engagement_file is not None:
+    engagement_data = pd.read_csv(engagement_file)
+if experience_file is not None:
+    experience_data = pd.read_csv(experience_file)
+if satisfaction_file is not None:
+    satisfaction_data = pd.read_csv(satisfaction_file)
 
 # Sidebar navigation
 st.sidebar.title("Dashboard Navigation")
@@ -61,7 +68,7 @@ elif page == "Experience Analysis":
         experience_data,
         x="Avg RTT DL (ms)",
         y="Avg Throughput DL (kbps)",
-        color="Experience Cluster",
+        color="MSISDN/Number",
         title="RTT vs Throughput by Cluster"
     )
     st.plotly_chart(fig)
